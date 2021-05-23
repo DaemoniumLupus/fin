@@ -259,10 +259,11 @@ void zaproem(int) {
 
 void palki() {
 
-	int qpf2[10], qpf3[10], qpf5 = 0, qpf6 = 0;
+	int qpf2[10] = {0,0,0,0,0,0,0,0,0,0}, qpf3[10] = { 0,0,0,0,0,0,0,0,0,0 }, qpf5 = 0, qpf6 = 0;
 
 
 	for (int x = 0; x < i; x++) {
+
 		if (f2[x] + f2[x] >= 6000) {
 			qpf2[x] += 2;
 		}
