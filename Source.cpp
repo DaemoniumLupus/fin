@@ -3,12 +3,12 @@
 
 
 
-
+/*
 int f6[10], f3[10], f5[10], f2[10]; // размеры в мм
 int naShodf5[10];
 int qf6[10], qf3[10]; //количество профиля в шт
 int qu_proemov = 0;
-
+*/
 ofstream fout;//запись в файл
 /*
 struct Proem { //структура проема
@@ -47,7 +47,8 @@ void zaproem(int) {
 	int qStekloNiz;
 	int verhImposta;
 	
-	
+	cout << "color\n";
+	cin >> color[qu_proemov];
 	cout << "vvedite h\n";
 	cin >>  h;
 	cout << "vvedite l\n";
@@ -233,7 +234,7 @@ void zaproem(int) {
 	fout << "\nf2 - " <<  f2[qu_proemov] << " - 2 шт.\n";
 	fout << "f3 - " <<  f3[qu_proemov] << " - " <<  qf3[qu_proemov]
 		<< " шт.\n";
-	fout << "f5 - " <<  f5[qu_proemov] << " - "/* <<  qf5*/<< " шт.\n";
+	fout << "f5 - " <<  f5[qu_proemov] << " - "/* <<  qf5*/<< "2 шт.\n";
 	//cout << "\nalarm" << proem[qu_proemov].qf6 << endl << proem[qu_proemov].f5 << endl << proem[qu_proemov].qf5;
 	if ( naShodf5[qu_proemov] > 0) {
 		fout << "f5 - " <<  naShodf5[qu_proemov] << " - 1 шт.\n";
@@ -256,12 +257,38 @@ void zaproem(int) {
 	fout.close();
 }
 
+void palki() {
+
+	int qpf2[10], qpf3[10], qpf5 = 0, qpf6 = 0;
+
+
+	for (int x = 0; x < i; x++) {
+		if (f2[x] + f2[x] >= 6000) {
+			qpf2[x] += 2;
+		}
+		else {
+			qpf2[x]++;
+		}
+
+		fout.open("text.txt", ios::app);
+		cout << endl << qpf2 << endl << qpf3 << endl << qpf5 << endl << qpf6 << endl;
+		fout << endl << qpf2 << endl << qpf3 << endl << qpf5 << endl << qpf6 << endl;
+		fout.close();
+	}
+}
+
+
 int main() {
 	setlocale(LC_ALL, "Russian");
-	int i; // количество проемов
+	
 	//int qu_proemov; // счетчик для контроля номера проема
 	cout << "kol-vo proemov\n";
 	cin >> i;
+
+	fout.open("text.txt");
+	fout << "New\n";
+	fout.close();
+
 	for (; qu_proemov < i; qu_proemov++) {
 		/*
 		 impost = 0;
@@ -284,11 +311,10 @@ int main() {
 		 verhImposta = 0;
 		*/
 		zaproem(qu_proemov);
-		//print(proem);
-		
-		
+		//print(proem);	
 	}
 	//system("print text.txt");
+	palki();
 
 	system("pause");
 	return 0;
