@@ -3,6 +3,8 @@
 
 
 
+
+
 using namespace std;
 
 int f6[10], f3[10], f5[10], f2[10]; // נאחלונû ג לל
