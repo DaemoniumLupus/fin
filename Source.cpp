@@ -47,8 +47,7 @@ void zaproem(int) {
 	int qStekloNiz;
 	int verhImposta;
 	
-	cout << "color\n";
-	cin >> color[qu_proemov];
+	
 	cout << "vvedite h\n";
 	cin >>  h;
 	cout << "vvedite l\n";
@@ -208,13 +207,12 @@ void zaproem(int) {
 //cout << "\nalarm" << proem[qu_proemov].qf6 << endl << proem[qu_proemov].f5 << endl << proem[qu_proemov].qf5;
 
 	cout << "f2 - " <<  f2[qu_proemov] << " - 2 רע.\n";
-	cout << "f3 - " <<  f3[qu_proemov] << " - " <<  qf3[qu_proemov]
-		<< " רע.\n";
-	cout << "f5 - " <<  f5[qu_proemov] << " - "/* <<  qf5*/ << "2 רע.\n";
+	cout << "f3 - " <<  f3[qu_proemov] << " - " <<  qf3[qu_proemov] << " רע.\n";
+	
 	//cout << "\nalarm" << proem[qu_proemov].qf6 << endl << proem[qu_proemov].f5 << endl << proem[qu_proemov].qf5;
 	if ( naShodf5[qu_proemov] > 0) {
-		cout << "f5 - " <<  naShodf5[qu_proemov] << " - 1 רע.\n";
-	}
+		cout << "f5 - " <<  naShodf5[qu_proemov] << " - 3 רע.\n";
+	} else cout << "f5 - " << f5[qu_proemov] << " - "/* <<  qf5*/ << "2 רע.\n";
 	//cout << "\nalarm" << proem[qu_proemov].qf6 << endl <<proem[qu_proemov].f5 << endl <<proem[qu_proemov].qf5<<"\n";
 	cout << "f6 - " <<  f6[qu_proemov] << " - " <<  qf6[qu_proemov] << " רע.\n";
 	for (int i = 0; i < 10; i++) {
@@ -259,26 +257,73 @@ void zaproem(int) {
 
 void palki() {
 
-	int qpf2[10] = {0,0,0,0,0,0,0,0,0,0}, qpf3[10] = { 0,0,0,0,0,0,0,0,0,0}, qpf5 = 0, qpf6 = 0;
+	int qpf2 = 0, qpf3 = 0, qpf5 = 0, qpf6 = 0;
 
 
 	for (int x = 0; x < i; x++) {
 
-		if (f2[x] * 2 >= 6000) {
-			qpf2[x] += 2;
+		if (f2[x] * 2 >= 6000) { // f2
+			qpf2 += 2;
 		}
 		else {
-			qpf2[x]++;
+			qpf2++;
 		}
 
-		if ()
+		if (f3[x] * qf3[x] <= 6000) { // f3
+			qpf3 += 1;
+		}
+		if (f3[x] * qf3[x] > 6000) {
+			qpf3 += 2;
+		}
+		if (f3[x] * qf3[x] > 12000) {
+			qpf3 += 3;
+		}
+		if (f3[x] * qf3[x] > 18000) {
+			qpf3 += 4;
+		}
+
+		if (naShodf5[x] > 0) { // f5
+			if (f5[x] * 3 > 6000) qpf5 += 2;
+			else qpf5 += 1;
+		}
+		else {
+			if (f5[x] * 2 > 6000) qpf5 += 2;
+			else qpf5 += 1;
+		}
+
+		if (f6[x] * qf6[x] <= 6000) { // f6
+			qpf6 += 1;
+		}
+		if (f6[x] * qf6[x] > 6000) {
+			qpf6 += 2;
+		}
+		if (f6[x] * qf6[x] > 12000) {
+			qpf6 += 3;
+		}
+		if (f6[x] * qf6[x] > 18000) {
+			qpf6 += 4;
+		}
+		if (f6[x] * qf6[x] > 24000) {
+			qpf6 += 5;
+		}
+
+
+	}
 
 
 		fout.open("text.txt", ios::app);
-		cout << endl << qpf2[x] << endl << qpf3[x] << endl << qpf5 << endl << qpf6 << endl;
-		fout << endl << qpf2[x] << endl << qpf3[x] << endl << qpf5 << endl << qpf6 << endl;
+		cout << endl
+			<< "f2 - " << qpf2 << endl
+			<< "f3 - " << qpf3 << endl
+			<< "f5 - " << qpf5 << endl
+			<< "f6 - " << qpf6 << endl;
+		fout << endl 
+			<< "f2 - " << qpf2 << endl 
+			<< "f3 - " << qpf3 << endl 
+			<< "f5 - " << qpf5 << endl 
+			<< "f6 - " << qpf6 << endl;
 		fout.close();
-	}
+	
 }
 
 
@@ -288,10 +333,15 @@ int main() {
 	//int qu_proemov; // סקועקטך הכÿ ךמםענמכÿ םמלונא ןנמולא
 	cout << "kol-vo proemov\n";
 	cin >> i;
+	cout << "color\n";
+	cin >> color;
 
 	fout.open("text.txt");
 	fout << "New\n";
+	fout << color << "\n";
 	fout.close();
+
+	
 
 	for (; qu_proemov < i; qu_proemov++) {
 		/*
@@ -315,11 +365,13 @@ int main() {
 		 verhImposta = 0;
 		*/
 		zaproem(qu_proemov);
-		//print(proem);	
+		//print(proem);
+		
 	}
-	//system("print text.txt");
 	palki();
+	//system("print text.txt");
+	
 
-	system("pause");
+	system ("pause");
 	return 0;
 }
